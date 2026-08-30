@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<div class="card">
+
+    <h2>Welcome, {{ current_user.username }}!</h2>
+
+    <p>
+        Score:
+    </p>
+
+    <div class="score">
+        {{ current_user.score }}
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h2>Challenges</h2>
+
+    <p>
+        Challenges coming soon...
+    </p>
+
+</div>
+
+{% endblock %}
