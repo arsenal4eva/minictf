@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user, login_required
@@ -12,7 +14,13 @@ def create_app():
     app = Flask(__name__)
 
     app.config["SECRET_KEY"] = "j%5W@Ckf7RXcU6smNG7k$7wR$7&ciCD6"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////home/arsenal4eva/Projects/minictf/minictf.db"
+
+    if os.environ.get("VERCEL"):
+        database_path = "/tmp/minictf.db"
+    else:
+        database_path = "/home/arsenal4eva/Projects/minictf/minictf.db"
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{database_path}"
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
