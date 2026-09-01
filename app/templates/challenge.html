@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ challenge.name }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="card">
+	<div class="challenge-header">
+		<div>
+
+			<h1>
+				{{ challenge.name }}
+			</h1>
+
+			<p>
+				{{ challenge.category }}
+			</p>
+
+		</div>
+
+		<div class="points">
+			{{ challenge.points }} points
+		</div>
+
+	</div>
+
+	<hr>
+
+	<div class="description">
+
+		{{ challenge.description|safe }}
+
+	</div>
+
+	{% if already_solved %}
+		<div class="solved">
+			You solved this challenge already.
+		</div>
+
+	{% elif team_solved %}
+		<div class="solved">
+			Your team has already solved this challenge
+		</div>
+
+	{% elif current_user.team %}
+		<form method="POST">
+			<label for="flag">
+				Flag
+			</label>
+
+			<input id="flag" name="flag" type="text" placeholder="flag{...}" autocomplete="off" required>
+			<button type="submit">
+				Submit Flag
+			</button>
+
+		</form>
+
+	{% else %}
+
+		<div class="card">
+
+			<h2>Join a team first</h2>
+			
+			<p>
+				You must join or create a team before you can submit flags.
+			</p>
+
+			<a class="button" href="{{ url_for('teams.index') }}">Join or Create Team</a>
+
+	{% endif %}
+
+</div>
+
+<a href="{{ url_for('challenges.list_challenges') }}">Back to challenges</a>
+
+{% endblock %}
+
+
+

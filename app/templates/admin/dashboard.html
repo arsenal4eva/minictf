@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Admin Dashboard
+
+{% endblock%}
+
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+
+
+<div class="admin-stats">
+	<div class="card">
+		<h3>Challenges</h3>
+		<div class="stat">
+			{{ challenges | length }}
+		</div>
+	</div>
+	
+	<div class="card">
+		<h3>Total Solves</h3>
+		<div class="stat">
+			{{ solve_count }}
+		</div>
+	</div>
+
+
+</div>
+
+
+<div class="admin-actions">
+	<a class="button" href="{{ url_for('admin.create_challenge') }}">+ Create Challenge</a>
+	<a class="button" href="{{ url_for('admin.settings') }}">Point Decay Settings</a>
+	<a class="button secondary" href"{{ url_for('admin.solves') }}">View Solves</a>
+</div>
+
+
+<div class="card">
+	<h2>Challenges</h2>
+	
+	{% for challenge in challenges %}
+
+		<div class="admin-challenge">
+			<div>
+				<h3>{{ challenge.name }}</h3>
+				<p>
+					{{ challenge.category }}
+					{{ challenge.points }} points
+					{{ challenge.solves|length }} solves
+				</p>
+			</div>
+
+			<div>
+				<a class="button small" href="{{ url_for('admin.edit_challenge', challenge_id=challenge.id) }}">Edit</a>
+			
+				<form method="POST" action="{{ url_for('admin.delete_challenge',challenge_id=challenge.id) }}" style="display:inline" onsubmit="return confirm('Delete this challenge?');">
+					<button type="submit" class="danger small">Delete</button>	
+				</form>
+			</div>
+		</div>
+	
+	{% else %}
+
+		<p>
+			No challenges yet.
+		</p>
+
+	{% endfor %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

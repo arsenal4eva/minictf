@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ team.name }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ team.name }}</h1>
+
+<div class="card">
+
+    <p>Team Score</p>
+
+    <div class="stat">
+        {{ team.score }}
+    </div>
+
+    <p>
+        Flags acquired
+    </p>
+
+    <div class="stat">
+	{{ flag_count }}
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Members</h2>
+
+
+    {% for user in team.users %}
+
+        <div class="member">
+
+            <span>
+
+                {{ user.username }}
+
+                {% if user.id == team.owner_id %}
+                    <strong> (Leader)</strong>
+                {% endif %}
+
+            </span>
+
+            <span>
+                {{ user.score }} points
+            </span>
+
+	</div>
+
+    {% else %}
+
+    	<p>
+	    No members.
+	</p>
+	
+    {% endfor %}
+
+</div>
+
+
+<a class="button secondary" href="{{ url_for('scoreboard.index') }}">View Scoreboard</a>
+
+{% endblock %}
+

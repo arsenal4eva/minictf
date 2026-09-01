@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Dashboard
+Dashboard 
 {% endblock %}
 
 {% block content %}
@@ -10,10 +10,12 @@ Dashboard
 
 <div class="card">
 
-    <h2>Welcome, {{ current_user.username }}!</h2>
+    <h2>
+        Welcome, {{ current_user.username }}!
+    </h2>
 
     <p>
-        Score:
+        Your score
     </p>
 
     <div class="score">
@@ -22,14 +24,26 @@ Dashboard
 
 </div>
 
+
 <div class="card">
 
-    <h2>Challenges</h2>
+    <h2>
+        Progress
+    </h2>
 
     <p>
-        Challenges coming soon...
+        Challenges solved:
+        {{ current_user.solves|length }}
     </p>
 
 </div>
+
+
+<a
+    class="button"
+    href="{{ url_for('challenges.list_challenges') }}"
+>
+    View Challenges
+</a>
 
 {% endblock %}

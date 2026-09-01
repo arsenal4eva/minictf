@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+Solves - MiniCTF
+{% endblock %}
+
+{% block content %}
+
+<h1>Solves</h1>
+
+<div class="card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Player</th>
+                <th>Challenge</th>
+                <th>Points</th>
+                <th>Time</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for solve in solves %}
+
+                <tr>
+
+                    <td>
+                        {{ solve.user.username }}
+                    </td>
+
+                    <td>
+                        {{ solve.challenge.name }}
+                    </td>
+
+                    <td>
+                        {{ solve.challenge.points }}
+                    </td>
+
+                    <td>
+                        {{ solve.timestamp.strftime(
+                            "%Y-%m-%d %H:%M"
+                        ) }}
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="4">
+                        No solves yet.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

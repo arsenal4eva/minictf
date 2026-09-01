@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Join Requests - {{ current_user.team.name }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Join Requests</h1>
+
+<div class="card">
+
+    <p>
+        Review users who want to join
+        <strong>{{ current_user.team.name }}</strong>.
+    </p>
+
+    {% for join_request in join_requests %}
+
+        <div class="member">
+
+            <div>
+
+                <strong>
+                    {{ join_request.user.username }}
+                </strong>
+
+                <br>
+
+                Requested:
+                {{ join_request.timestamp.strftime(
+                    "%Y-%m-%d %H:%M"
+                ) }}
+
+            </div>
+
+
+            <div>
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'teams.approve_request',
+                        request_id=join_request.id
+                    ) }}"
+                    style="display:inline"
+                >
+
+                    <button type="submit">
+                        Approve
+                    </button>
+
+                </form>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'teams.reject_request',
+                        request_id=join_request.id
+                    ) }}"
+                    style="display:inline"
+                >
+
+                    <button type="submit">
+                        Reject
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No pending join requests.
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+<a
+    class="button secondary"
+    href="{{ url_for(
+        'teams.team',
+        team_id=current_user.team_id
+    ) }}"
+>
+    ← Back to Team
+</a>
+
+{% endblock %}
+
+

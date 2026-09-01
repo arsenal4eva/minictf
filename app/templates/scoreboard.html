@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Scoreboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Scoreboard</h1>
+
+<div class="card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>#</th>
+                <th>Team</th>
+                <th>Members</th>
+                <th>Flags</th>
+                <th>Score</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for entry in entries %}
+
+                {% set team = entry.team %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        <a
+                            href="{{ url_for(
+                                'teams.team',
+                                team_id=team.id
+                            ) }}"
+                        >
+                            {{ team.name }}
+                        </a>
+                    </td>
+
+                    <td>
+                        {{ team.users|length }}
+                    </td>
+
+                    <td>
+                        {{ entry.flag_count }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ entry.score }}
+                        </strong>
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+                    <td colspan="5">
+                        No teams yet.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teams
+{% endblock %}
+
+{% block content %}
+
+<h1>Teams</h1>
+
+{% if pending_request %}
+
+<div class="card">
+
+    <h2>Join Request Pending</h2>
+
+    <p>
+        Your request to join
+        <strong>{{ pending_request.team.name }}</strong>
+        is waiting for approval from the team leader.
+    </p>
+
+</div>
+
+{% endif %}
+
+
+<div class="card">
+
+    <h2>Create a Team</h2>
+
+    <p>
+        Create your own team and become its leader.
+    </p>
+
+    <a
+        class="button"
+        href="{{ url_for('teams.create') }}"
+    >
+        Create Team
+    </a>
+
+</div>
+
+
+<div class="card">
+
+    <h2>Available Teams</h2>
+
+    {% for team in teams %}
+
+        <div class="member">
+
+            <div>
+
+                <strong>
+                    {{ team.name }}
+                </strong>
+
+                <br>
+
+                {{ team.users|length }} / 4 members
+
+                <br>
+
+                Leader:
+                {{ team.owner.username }}
+
+            </div>
+
+
+            <div>
+
+                {% if team.users|length >= 4 %}
+
+                    <span>
+                        Team Full
+                    </span>
+
+                {% elif pending_request and pending_request.team_id == team.id %}
+
+                    <span>
+                        Request Pending
+                    </span>
+
+                {% elif pending_request %}
+
+                    <span>
+                        Another request pending
+                    </span>
+
+                {% else %}
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'teams.request_join',
+                            team_id=team.id
+                        ) }}"
+                    >
+
+                        <button type="submit">
+                            Request to Join
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No teams exist yet.
+        </p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+

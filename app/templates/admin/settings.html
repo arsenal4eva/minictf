@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}
+CTF Settings
+{% endblock %}
+
+{% block content %}
+
+<h1>CTF Settings</h1>
+
+<div class="card">
+
+    <h2>Point Decay</h2>
+
+    <p>
+        The decay exponent controls how quickly challenge
+        points decrease as more teams solve them.
+    </p>
+
+    <p>
+        Formula:
+        <strong>
+            P = P₀ / (n + 1)ᵏ
+        </strong>
+    </p>
+
+    <p>
+        <strong>P₀</strong> = original points<br>
+        <strong>n</strong> = number of teams that solved it<br>
+        <strong>k</strong> = decay exponent
+    </p>
+
+    <form method="POST">
+
+        <label for="decay_exponent">
+            Decay strength:
+            <strong>
+                <span id="decayValue">
+                    {{ "%.2f"|format(settings.decay_exponent) }}
+                </span>
+            </strong>
+        </label>
+
+        <input
+            type="range"
+            id="decay_exponent"
+            name="decay_exponent"
+            min="0.10"
+            max="2.00"
+            step="0.05"
+            value="{{ settings.decay_exponent }}"
+            oninput="updateDecay(this.value)"
+        >
+
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        ">
+            <span>Slow decay</span>
+            <span>Fast decay</span>
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Save Decay Settings
+        </button>
+
+    </form>
+
+</div>
+
+<a
+    class="button secondary"
+    href="{{ url_for('admin.dashboard') }}"
+>
+    ← Back to Admin Dashboard
+</a>
+
+<script>
+function updateDecay(value) {
+    document.getElementById("decayValue").textContent =
+        parseFloat(value).toFixed(2);
+}
+</script>
+
+{% endblock %}
+

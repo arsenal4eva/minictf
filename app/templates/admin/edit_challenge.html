@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Challenge 
+{% endblock %}
+
+{% block content %}
+
+<h1>Edit Challenge</h1>
+
+<div class="card">
+
+    <form method="POST">   
+
+        <label>
+            Challenge Name
+        </label>
+
+        <input
+            type="text"
+            name="name"
+            value="{{ challenge.name }}"
+            required
+        >
+
+
+        <label>
+            Category
+        </label>
+
+        <input
+            type="text"
+            name="category"
+            value="{{ challenge.category }}"
+            required
+        >
+
+
+        <label>
+            Original Points
+        </label>
+
+        <input
+            type="number"
+            name="points"
+            value="{{ challenge.base_points }}"
+            min="1"
+            required
+        >
+
+        <p>
+            Current value:
+            <strong>{{ challenge.points }} pts</strong>
+        </p>
+
+
+        <label>
+            Description
+        </label>
+
+        <textarea
+            name="description"
+            rows="10"
+            required
+        >{{ challenge.description }}</textarea>
+
+
+        <label>
+            New Flag
+        </label>
+
+        <input
+            type="text"
+            name="flag"
+            placeholder="Leave blank to keep current flag"
+        >
+
+
+        <label class="checkbox">
+
+            <input
+                type="checkbox"
+                name="visible"
+                {% if challenge.visible %}
+                    checked
+                {% endif %}
+            >
+
+            Visible to players
+
+        </label>
+
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+<a
+    class="button secondary"
+    href="{{ url_for('admin.dashboard') }}"
+>
+    ← Back to Admin Dashboard
+</a>
+
+{% endblock %}
+

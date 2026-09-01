@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Challenge - MiniCTF
+{% endblock %}
+
+{% block content %}
+
+<h1>Create Challenge</h1>
+
+<div class="card">
+
+    <form method="POST">
+
+        <label>
+            Challenge Name
+        </label>
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Caesar's Revenge"
+            required
+        >
+
+
+        <label>
+            Category
+        </label>
+
+        <input
+            type="text"
+            name="category"
+            placeholder="Crypto"
+            required
+        >
+
+
+        <label>
+            Points
+        </label>
+
+        <input
+            type="number"
+            name="points"
+            min="1"
+            placeholder="100"
+            required
+        >
+
+
+        <label>
+            Description
+        </label>
+
+        <textarea
+            name="description"
+            rows="10"
+            placeholder="Challenge description..."
+            required
+        ></textarea>
+
+
+        <label>
+            Flag
+        </label>
+
+        <input
+            type="text"
+            name="flag"
+            placeholder="flag{...}"
+            required
+        >
+
+
+        <button type="submit">
+            Create Challenge
+        </button>
+
+    </form>
+
+</div>
+
+<a href="{{ url_for('admin.dashboard') }}">
+    ← Back to Admin
+</a>
+
+{% endblock %}

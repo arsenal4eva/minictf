@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+Challenges - MiniCTF
+{% endblock %}
+
+{% block content %}
+
+<h1>Challenges</h1>
+
+{% set namespace = namespace(category="") %}
+
+{% for challenge in challenges %}
+
+    {% if challenge.category != namespace.category %}
+
+        {% set namespace.category = challenge.category %}
+
+        <h2 class="category">
+            {{ challenge.category }}
+        </h2>
+
+    {% endif %}
+
+    <a
+        class="challenge-card"
+        href="{{ url_for(
+            'challenges.challenge',
+            challenge_id=challenge.id
+        ) }}"
+    >
+
+        <div>
+
+            <h3>
+                {% if challenge.id in solved_ids %}
+                    Solved
+                {% endif %}
+
+                {{ challenge.name }}
+            </h3>
+
+            <p>
+                {{ challenge.category }}
+            </p>
+
+        </div>
+
+        <strong>
+            {{ challenge.points }}
+        </strong>
+
+    </a>
+
+{% else %}
+
+    <p>
+        No challenges available.
+    </p>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Join Team 
+{% endblock %}
+
+{% block content %}
+
+<h1>Join Team</h1>
+
+<div class="card">
+
+    <form method="POST">
+
+        <label>
+            Team Name
+        </label>
+
+        <input
+            type="text"
+            name="name"
+            maxlength="80"
+            placeholder="13371337"
+            required
+        >
+
+        <button type="submit">
+            Join Team
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+
+
