@@ -2,7 +2,10 @@
 My project to make a small ctf platform
 
 
-Made for a ysws program on hackclub.
+Demo link:
+
+https://minictf-zeta.vercel.app/
+
 
 How to use: 
 
